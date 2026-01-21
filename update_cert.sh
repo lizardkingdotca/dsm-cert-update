@@ -20,7 +20,7 @@ ARCHIVE_BASE_DIR="${ARCHIVE_BASE_DIR:-/usr/syno/etc/certificate/_archive}"
 readonly ARCHIVE_BASE_DIR
 
 ARCHIVE_ID=$(jq -r 'to_entries[] | select(.value.desc == "'$CERT_DESC'") | .key' ${ARCHIVE_BASE_DIR}/INFO)
-ECHO $ARCHIVE_ID
+echo $ARCHIVE_ID
 readonly ARCHIVE_ID
 
 ARCHIVE_DIR="${ARCHIVE_DIR:-${ARCHIVE_BASE_DIR}/${ARCHIVE_ID}}"
