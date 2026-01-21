@@ -209,7 +209,7 @@ update_cert_location() {
     for svc in "${services[@]}"; do
       copy_cert_files "$ARCHIVE_DIR" "$dir/$subscriber/$svc" "$([ "$type" = pkg ] && echo true)"
       copy_file      "$ARCHIVE_DIR/$CHAIN_FILE_NAME_TGT" "$dir/$subscriber/$svc/$SHORTCHAIN_FILE_NAME_TGT"
-      copy_root_cert_from_trust "$ARCHIVE_DIR/$CHAIN_FILE_NAME_TGT" "$dir/$subscriber/$svc/$ROOT_CERT_FILE_NAME_TGT"
+      #copy_root_cert_from_trust "$ARCHIVE_DIR/$CHAIN_FILE_NAME_TGT" "$dir/$subscriber/$svc/$ROOT_CERT_FILE_NAME_TGT"
     done
   done
 }
