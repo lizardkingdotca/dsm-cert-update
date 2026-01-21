@@ -19,7 +19,7 @@ readonly LOCAL_BASE_DIR
 ARCHIVE_BASE_DIR="${ARCHIVE_BASE_DIR:-/usr/syno/etc/certificate/_archive}"
 readonly ARCHIVE_BASE_DIR
 
-ARCHIVE_ID="$(jq -r 'to_entries[] | select(.value.desc == \"*.$DOMAIN\") | .key' ${ARCHIVE_BASE_DIR}/INFO)/"
+ARCHIVE_ID=$(jq -r 'to_entries[] | select(.value.desc == "'$CERT_DESC'") | .key' ${ARCHIVE_BASE_DIR}/INFO)
 ECHO $ARCHIVE_ID
 readonly ARCHIVE_ID
 
