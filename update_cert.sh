@@ -10,22 +10,17 @@ readonly LOGFILE
 DOMAIN="${DOMAIN:-example.com}"
 readonly DOMAIN
 
-REMOTE_USER="${REMOTE_USER:-example_user}"
-readonly REMOTE_USER
-
-REMOTE_HOST="${REMOTE_HOST:-terra.example.com}"
-readonly REMOTE_HOST
-
 CERT_DESC="${CERT_DESC:-*.$DOMAIN}"
 readonly CERT_DESC
 
-LOCAL_BASE_DIR="${LOCAL_BASE_DIR:-/volume1/scriptuse/cert_update/$CERT_DESC}"
+LOCAL_BASE_DIR="${LOCAL_BASE_DIR:-/volume1/docker/cronsupervisor/letsencrypt/etc/live/$DOMAIN}"
 readonly LOCAL_BASE_DIR
 
 ARCHIVE_BASE_DIR="${ARCHIVE_BASE_DIR:-/usr/syno/etc/certificate/_archive}"
 readonly ARCHIVE_BASE_DIR
 
-ARCHIVE_ID="$(< "${ARCHIVE_BASE_DIR}/DEFAULT")"
+ARCHIVE_ID="$(jq -r 'to_entries[] | select(.value.desc == \"*.$DOMAIN\") | .key' ${ARCHIVE_BASE_DIR}/INFO)/"
+ECHO $ARCHIVE_ID
 readonly ARCHIVE_ID
 
 ARCHIVE_DIR="${ARCHIVE_DIR:-${ARCHIVE_BASE_DIR}/${ARCHIVE_ID}}"
