@@ -297,32 +297,10 @@ restart_services() {
 
 # ===== Main flow =====
 
-run mkdir -p "$LOCAL_BASE_DIR"
-log "Syncing from $REMOTE_HOST:$REMOTE_BASE_DIR → $LOCAL_BASE_DIR"
-
-OUTPUT=$(run -q rsync -ac --itemize-changes \
-  "$REMOTE_USER@$REMOTE_HOST:$REMOTE_CERT_PATH" \
-  "$REMOTE_USER@$REMOTE_HOST:$REMOTE_CHAIN_PATH" \
-  "$REMOTE_USER@$REMOTE_HOST:$REMOTE_FULLCHAIN_PATH" \
-  "$REMOTE_USER@$REMOTE_HOST:$REMOTE_KEY_PATH" \
-  "$LOCAL_BASE_DIR/" 2>&1) || RSYNC_EXIT=$?
-RSYNC_EXIT=${RSYNC_EXIT:-0}
-
-if [ "$RSYNC_EXIT" -ne 0 ]; then
-  log_error "rsync error (Exit $RSYNC_EXIT)"
-  log_error "$OUTPUT"
-  exit "$RSYNC_EXIT"
-fi
-log "rsync completed"
-
-if echo "$OUTPUT" | grep -q '^>'; then
-  log "Changes detected – updating certificate archive for $CERT_DESC"
-  copy_cert_files "$LOCAL_BASE_DIR" "$ARCHIVE_DIR" true
-  log "Certificate archive successfully updated."
-  update_cert_location packages
-  update_cert_location system
-  log "All certificates for $CERT_DESC have been successfully updated."
-  restart_services
-else
-  log "No changes to certificate files detected."
-fi
+log "Changes detected – updating certificate archive for $CERT_DESC"
+copy_cert_files "$LOCAL_BASE_DIR" "$ARCHIVE_DIR" true
+log "Certificate archive successfully updated."
+update_cert_location packages
+update_cert_location system
+log "All certificates for $CERT_DESC have been successfully updated."
+restart_services
