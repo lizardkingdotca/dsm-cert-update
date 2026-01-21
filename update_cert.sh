@@ -16,7 +16,7 @@ readonly REMOTE_USER
 REMOTE_HOST="${REMOTE_HOST:-terra.example.com}"
 readonly REMOTE_HOST
 
-CERT_DESC="${CERT_DESC:-Letsencrypt}"
+CERT_DESC="${CERT_DESC:-*.$DOMAIN}"
 readonly CERT_DESC
 
 LOCAL_BASE_DIR="${LOCAL_BASE_DIR:-/volume1/scriptuse/cert_update/$CERT_DESC}"
