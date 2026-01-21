@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-DRY_RUN="${DRY_RUN:-false}"
+DRY_RUN="${DRY_RUN:-true}"
 readonly DRY_RUN
 
 LOGFILE="${LOGFILE:-/var/log/update_cert.log}"
